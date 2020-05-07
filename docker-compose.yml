@@ -52,7 +52,7 @@ services:
       - consul-data:/consul/data
 
   consul:
-    image: consul:7
+    image: consul:1.7
     ports:
       - "8400:8400"
       - "8500:8500"
@@ -72,6 +72,7 @@ services:
 
   config-seed:
     image: edgexfoundry/docker-core-config-seed-go-arm64:1.1.0
+    command: ["--profile=docker", "--cmd=/edgex/cmd-redis"]
     container_name: edgex-config-seed
     hostname: edgex-core-config-seed
     networks:
@@ -89,18 +90,18 @@ services:
       - volume
       - consul
 
-    redis:
-      image: redis:5.0.5-alpine
-      ports:
-        - "6379:6379"
-      container_name: edgex-redis
-      hostname: edgex-redis
-      networks:
-        - edgex-network
-      volumes:
-        - db-data:/data
-      depends_on:
-        - volume
+  redis:
+    image: redis:5.0.5-alpine
+    ports:
+      - "6379:6379"
+    container_name: edgex-redis
+    hostname: edgex-redis
+    networks:
+      - edgex-network
+    volumes:
+      - db-data:/data
+    depends_on:
+      - volume
 
   # mongo:
   #   image: edgexfoundry/docker-edgex-mongo-arm64:1.1.0
@@ -137,7 +138,7 @@ services:
       - consul-data:/consul/data
     depends_on:
       - config-seed
-      - mongo
+      - redis
       - volume
 
   system:
@@ -249,6 +250,7 @@ services:
       - consul-data:/consul/data
     depends_on:
       - metadata
+      - redis
 
   app-service-rules:
     image: edgexfoundry/docker-app-service-configurable-arm64:1.0.0
