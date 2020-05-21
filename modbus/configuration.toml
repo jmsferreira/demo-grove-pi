@@ -63,10 +63,6 @@ LogLevel = "DEBUG"
   labels = [ "Air conditioner","modbus TCP" ]
   [DeviceList.Protocols]
     [DeviceList.Protocols.modbus-tcp]
-      Address = "192.168.56.1"
+      Address = "192.168.1.13"
       Port = "10502"
       UnitID = "1"
-#  [[DeviceList.AutoEvents]]
-#    Frequency = "1s"
-#    OnChange = true
-#    Resource = "Readings"
