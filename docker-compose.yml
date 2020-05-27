@@ -100,6 +100,9 @@ services:
       - edgex-network
     volumes:
       - db-data:/data
+      - log-data:/edgex/logs
+      - consul-config:/consul/config
+      - consul-data:/consul/data
     depends_on:
       - volume
 
@@ -234,7 +237,7 @@ services:
       - metadata
 
   scheduler:
-    image: edgexfoundry/docker-support-scheduler-go-arm64:1.1.0
+    image: edgexfoundry/docker-support-scheduler-go-arm64:1.2.0
     ports:
       - "48085:48085"
     container_name: edgex-support-scheduler
