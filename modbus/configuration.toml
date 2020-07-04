@@ -63,6 +63,6 @@ LogLevel = "DEBUG"
   labels = [ "Air conditioner","modbus TCP" ]
   [DeviceList.Protocols]
     [DeviceList.Protocols.modbus-tcp]
-      Address = "192.168.1.13"
+      Address = "192.168.1.19"
       Port = "10502"
       UnitID = "1"
